@@ -11,7 +11,7 @@ import CoreLocation
 
 class infoViewController: UIViewController{
     //  label/buttons
-    @IBOutlet weak var backPressed: UIButton!
+    @IBOutlet weak var backLabel: UIButton!
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -55,6 +55,9 @@ class infoViewController: UIViewController{
     var uviString: String?
     var uviSafety: String?
     
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,9 +82,9 @@ class infoViewController: UIViewController{
         
         covidView.layer.cornerRadius = 20
         covidView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
-        //backButton Aesthetics
-        backPressed.layer.cornerRadius = 10
-        backPressed.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.43)
+        //backLabel Aesthetics
+        backLabel.layer.cornerRadius = 10
+        backLabel.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.43)
         
 
         self.covidLabel.text = "Infection Rate: \(covidInfection ?? "----")%"
@@ -101,11 +104,8 @@ class infoViewController: UIViewController{
         self.uviSafetyLabel.text = "\(uviSafety ?? "----")"
         
     }
+    
 
-
-    @IBAction func backPressed(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
-    }
 }
 
 

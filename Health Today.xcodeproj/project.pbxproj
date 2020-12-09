@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		ADAA27AD231BBFAF00365194 /* Clima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clima.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADAA27AD231BBFAF00365194 /* Health Today.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health Today.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADAA27B0231BBFAF00365194 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADAA27B2231BBFAF00365194 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		ADAA27B4231BBFAF00365194 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		ADAA27AE231BBFAF00365194 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ADAA27AD231BBFAF00365194 /* Clima.app */,
+				ADAA27AD231BBFAF00365194 /* Health Today.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,9 +133,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ADAA27AC231BBFAF00365194 /* Clima */ = {
+		ADAA27AC231BBFAF00365194 /* Health Today */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "Clima" */;
+			buildConfigurationList = ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "Health Today" */;
 			buildPhases = (
 				ADAA27A9231BBFAF00365194 /* Sources */,
 				ADAA27AA231BBFAF00365194 /* Frameworks */,
@@ -145,9 +145,9 @@
 			);
 			dependencies = (
 			);
-			name = Clima;
+			name = "Health Today";
 			productName = Clima;
-			productReference = ADAA27AD231BBFAF00365194 /* Clima.app */;
+			productReference = ADAA27AD231BBFAF00365194 /* Health Today.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -158,14 +158,14 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1220;
-				ORGANIZATIONNAME = "App Brewery";
+				ORGANIZATIONNAME = "David Jr.";
 				TargetAttributes = {
 					ADAA27AC231BBFAF00365194 = {
 						CreatedOnToolsVersion = 11.0;
 					};
 				};
 			};
-			buildConfigurationList = ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "Clima" */;
+			buildConfigurationList = ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "Health Today" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -178,7 +178,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ADAA27AC231BBFAF00365194 /* Clima */,
+				ADAA27AC231BBFAF00365194 /* Health Today */,
 			);
 		};
 /* End PBXProject section */
@@ -397,7 +397,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "Clima" */ = {
+		ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "Health Today" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADAA27BF231BBFB300365194 /* Debug */,
@@ -406,7 +406,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "Clima" */ = {
+		ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "Health Today" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADAA27C2231BBFB300365194 /* Debug */,
