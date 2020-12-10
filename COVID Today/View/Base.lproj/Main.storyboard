@@ -13,7 +13,7 @@
         <!--Weather View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="WeatherViewController" customModule="Health_Today" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WeatherViewController" customModule="COVID_Today" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g3Y-cT-2C3">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -135,11 +135,11 @@
                                                 <color key="textColor" systemColor="systemYellowColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9f-bm-jnq">
-                                                <rect key="frame" x="0.0" y="102" width="350" height="140"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9f-bm-jnq">
+                                                <rect key="frame" x="-12.333333333333343" y="102" width="375" height="140"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="140" id="FKv-Tp-Es6"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="350" id="zBi-2z-ZwC"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="375" id="zBi-2z-ZwC"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="85"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -237,7 +237,7 @@
         <!--infoViewController-->
         <scene sceneID="aZP-YP-ZeC">
             <objects>
-                <viewController title="infoViewController" id="gk8-pd-GpD" customClass="infoViewController" customModule="Health_Today" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="infoViewController" id="gk8-pd-GpD" customClass="infoViewController" customModule="COVID_Today" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YKk-2y-22A">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
