@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ADAA27AC231BBFAF00365194"
-               BuildableName = "COVID Today.app"
-               BlueprintName = "COVID Today"
-               ReferencedContainer = "container:COVID Today.xcodeproj">
+               BuildableName = "Health Today.app"
+               BlueprintName = "Health Today"
+               ReferencedContainer = "container:Health Today.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ADAA27AC231BBFAF00365194"
-            BuildableName = "COVID Today.app"
-            BlueprintName = "COVID Today"
-            ReferencedContainer = "container:COVID Today.xcodeproj">
+            BuildableName = "Health Today.app"
+            BlueprintName = "Health Today"
+            ReferencedContainer = "container:Health Today.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ADAA27AC231BBFAF00365194"
-            BuildableName = "COVID Today.app"
-            BlueprintName = "COVID Today"
-            ReferencedContainer = "container:COVID Today.xcodeproj">
+            BuildableName = "Health Today.app"
+            BlueprintName = "Health Today"
+            ReferencedContainer = "container:Health Today.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

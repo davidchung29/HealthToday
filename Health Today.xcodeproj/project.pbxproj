@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		ADAA27AD231BBFAF00365194 /* COVID Today.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "COVID Today.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADAA27AD231BBFAF00365194 /* Health Today.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health Today.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADAA27B0231BBFAF00365194 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADAA27B2231BBFAF00365194 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		ADAA27B4231BBFAF00365194 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
@@ -41,7 +41,7 @@
 		CC05FBFA2578495700C9ED7D /* infoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoManager.swift; sourceTree = "<group>"; };
 		CC05FBFD257849C700C9ED7D /* infoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoData.swift; sourceTree = "<group>"; };
 		CC05FC00257867A900C9ED7D /* infoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoModel.swift; sourceTree = "<group>"; };
-		CC7B6E08256DE9D60020308B /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherManager.swift; path = "COVID Today/Model/WeatherManager.swift"; sourceTree = SOURCE_ROOT; };
+		CC7B6E08256DE9D60020308B /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherManager.swift; path = "Health Today/Model/WeatherManager.swift"; sourceTree = SOURCE_ROOT; };
 		CC7B6E0D256EA4010020308B /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		CC8D7240257C4B1700CAFF70 /* getFipsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getFipsData.swift; sourceTree = "<group>"; };
 		CC8D7243257C4BB600CAFF70 /* getFipsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getFipsModel.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		ADAA27A4231BBFAF00365194 = {
 			isa = PBXGroup;
 			children = (
-				ADAA27AF231BBFAF00365194 /* COVID Today */,
+				ADAA27AF231BBFAF00365194 /* Health Today */,
 				ADAA27AE231BBFAF00365194 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,12 +74,12 @@
 		ADAA27AE231BBFAF00365194 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ADAA27AD231BBFAF00365194 /* COVID Today.app */,
+				ADAA27AD231BBFAF00365194 /* Health Today.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ADAA27AF231BBFAF00365194 /* COVID Today */ = {
+		ADAA27AF231BBFAF00365194 /* Health Today */ = {
 			isa = PBXGroup;
 			children = (
 				ADAA27B0231BBFAF00365194 /* AppDelegate.swift */,
@@ -91,7 +91,7 @@
 				ADAA27BB231BBFB300365194 /* LaunchScreen.storyboard */,
 				ADAA27BE231BBFB300365194 /* Info.plist */,
 			);
-			path = "COVID Today";
+			path = "Health Today";
 			sourceTree = "<group>";
 		};
 		ADAA27C8231BC3E500365194 /* Controller */ = {
@@ -133,9 +133,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ADAA27AC231BBFAF00365194 /* COVID Today */ = {
+		ADAA27AC231BBFAF00365194 /* Health Today */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "COVID Today" */;
+			buildConfigurationList = ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "Health Today" */;
 			buildPhases = (
 				ADAA27A9231BBFAF00365194 /* Sources */,
 				ADAA27AA231BBFAF00365194 /* Frameworks */,
@@ -145,9 +145,9 @@
 			);
 			dependencies = (
 			);
-			name = "COVID Today";
+			name = "Health Today";
 			productName = Clima;
-			productReference = ADAA27AD231BBFAF00365194 /* COVID Today.app */;
+			productReference = ADAA27AD231BBFAF00365194 /* Health Today.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -165,7 +165,7 @@
 					};
 				};
 			};
-			buildConfigurationList = ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "COVID Today" */;
+			buildConfigurationList = ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "Health Today" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -178,7 +178,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ADAA27AC231BBFAF00365194 /* COVID Today */,
+				ADAA27AC231BBFAF00365194 /* Health Today */,
 			);
 		};
 /* End PBXProject section */
@@ -364,13 +364,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0002;
 				DEVELOPMENT_TEAM = FR94884C36;
-				INFOPLIST_FILE = "COVID Today/Info.plist";
+				INFOPLIST_FILE = "Health Today/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "co.Zinee.COVID-Today";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.Zinee.Health-Today";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -384,13 +386,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0002;
 				DEVELOPMENT_TEAM = FR94884C36;
-				INFOPLIST_FILE = "COVID Today/Info.plist";
+				INFOPLIST_FILE = "Health Today/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "co.Zinee.COVID-Today";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.Zinee.Health-Today";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -401,7 +405,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "COVID Today" */ = {
+		ADAA27A8231BBFAF00365194 /* Build configuration list for PBXProject "Health Today" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADAA27BF231BBFB300365194 /* Debug */,
@@ -410,7 +414,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "COVID Today" */ = {
+		ADAA27C1231BBFB300365194 /* Build configuration list for PBXNativeTarget "Health Today" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADAA27C2231BBFB300365194 /* Debug */,
