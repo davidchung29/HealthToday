@@ -36,7 +36,7 @@ class infoViewController: UIViewController{
     @IBOutlet weak var SunView: UIView!
     
     
-    var covidInfection:String?
+    var Risk:String?
     var caseDensity: String?
     
     let locationManager = CLLocationManager()
@@ -57,6 +57,8 @@ class infoViewController: UIViewController{
     var uviString: String?
     var uviSafety: String?
     
+    var windSpeed: String?
+    var visibility: String?
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -100,9 +102,11 @@ class infoViewController: UIViewController{
         backLabel.layer.cornerRadius = 10
         backLabel.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.43)
         
+        self.covidLabel.text = "Wind Speed:\(windSpeed ?? "----")MPH"
+        self.caseDensityLabel.text = "Visibility: \(visibility ?? "----")M"
 
-        self.covidLabel.text = "Infection Rate: \(covidInfection ?? "----")%"
-        self.caseDensityLabel.text = "\(caseDensity ?? "----")/100,000 Infected"
+        //self.covidLabel.text = "Infection Rate: \(covidInfection ?? "----")%"
+        //self.caseDensityLabel.text = "\(caseDensity ?? "----")/100,000 Infected"
         
         self.dateLabel.text = "\(Date ?? "----")"
         self.sunriseLabel.text = "\(stringSunriseDate ?? "----")"

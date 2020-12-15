@@ -1,3 +1,4 @@
+//uncomment line 99
 //
 //  ViewController.swift
 //  Clima
@@ -32,8 +33,8 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var viewDataButton: UIButton!
-    @IBOutlet weak var covidHealth: UILabel!
-    @IBOutlet weak var covidInfection: UILabel!
+    @IBOutlet weak var Health: UILabel!
+    @IBOutlet weak var Risk: UILabel!
     
     
     var weatherManager = WeatherManager()
@@ -61,6 +62,10 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     var uviString: String?
     var uviSafety: String?
     
+    var windSpeed: String?
+    var visibility: String?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,10 +74,10 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         viewDataButton.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.43)
         
         //make label look good
-        covidHealth.layer.cornerRadius = 15
-        covidHealth.layer.borderWidth = 14.0
-        covidHealth.layer.borderColor = UIColor.systemGray3.withAlphaComponent(0.46).cgColor
-        covidHealth.layer.backgroundColor=UIColor.systemGray4.withAlphaComponent(0.35).cgColor
+        Health.layer.cornerRadius = 15
+        Health.layer.borderWidth = 14.0
+        Health.layer.borderColor = UIColor.systemGray3.withAlphaComponent(0.46).cgColor
+        Health.layer.backgroundColor=UIColor.systemGray4.withAlphaComponent(0.35).cgColor
         
         
         locationManager.delegate = self
@@ -91,8 +96,8 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         
         DispatchQueue.main.async {
             
-            self.covidHealth.text = "\(covidInfo.CaseDensitySafety)"
-            self.covidInfection.text = " \(covidInfo.InfectionRateString)% "
+            //self.Health.text = "\(covidInfo.CaseDensitySafety)"
+            self.Risk.text = " \(covidInfo.InfectionRateString)% "
             self.CovidInfection = covidInfo.InfectionRateString
             self.CaseDensity = covidInfo.CaseDensityString
         }
@@ -109,7 +114,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo"{
             let destinationVC = segue.destination as! infoViewController
-            destinationVC.covidInfection = CovidInfection
+            destinationVC.Risk = CovidInfection
             destinationVC.caseDensity = CaseDensity
             destinationVC.Date = Date
             destinationVC.stringSunriseDate = stringSunriseDate
@@ -121,6 +126,8 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
             destinationVC.humiditySafety = humiditySafety
             destinationVC.uviString = uviString
             destinationVC.uviSafety = uviSafety
+            destinationVC.windSpeed = windSpeed
+            destinationVC.visibility = visibility
         }
     }
     
@@ -168,6 +175,7 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.temperatureLabel.text = weather.temperatureString
             self.conditionImageView.image = UIImage(systemName: weather.conditionName)
             self.cityLabel.text = weather.cityName
+            
         }
     }
     
@@ -242,6 +250,10 @@ extension WeatherViewController: infoManagerDelegate{
             self.uviString = "\(weatherInfo.uviString)"
             self.uviSafety = "\(weatherInfo.uviSafety)"
             
+            self.windSpeed = "\(weatherInfo.windSpeedString)"
+            self.visibility = "\(weatherInfo.Visibility)"
+            
+            self.Health.text = self.uviSafety
 
         }
     }

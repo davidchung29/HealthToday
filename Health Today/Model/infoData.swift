@@ -21,7 +21,8 @@ struct Current: Decodable{
     let humidity: Int
     let uvi: Double
 //
-//    let wind_speed: Double
+    let wind_speed: Double
+    let visibility: Double
 //    let wind_deg: Double
 //    let wind_gust: Double
 }

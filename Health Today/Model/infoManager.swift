@@ -54,9 +54,11 @@ struct InfoManager{
             let pressure = decodedData.current.pressure
             let humidity = decodedData.current.humidity
             let uvi = decodedData.current.uvi
+            let wind_speed = decodedData.current.wind_speed
+            let visibility = decodedData.current.visibility
             print(sunrise)
             print(sunset)
-            let weatherInfo = infoModel(Sunrise: sunrise, Sunset: sunset, Temperature: temperature, FeelsLike: feelsLike, Pressure: pressure, Humidity: humidity, uviValue: uvi)
+            let weatherInfo = infoModel(Sunrise: sunrise, Sunset: sunset, Temperature: temperature, FeelsLike: feelsLike, Pressure: pressure, Humidity: humidity, uviValue: uvi, windSpeed: wind_speed, Visibility: visibility)
             print("parseJSON info success!")
             return weatherInfo
 

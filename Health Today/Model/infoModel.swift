@@ -16,6 +16,9 @@ struct infoModel{
     let Pressure: Int
     let Humidity: Int
     let uviValue: Double
+    let windSpeed:Double
+    let Visibility: Double
+    
     var TemperatureString: String{
         String(format: "%.1f", Temperature)
     }
@@ -30,6 +33,9 @@ struct infoModel{
     }
     var uviString: String{
         String(uviValue)
+    }
+    var windSpeedString: String{
+        String(windSpeed)
     }
     var uviSafety:String{
         switch uviValue {
