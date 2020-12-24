@@ -36,6 +36,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     @IBOutlet weak var Health: UILabel!
     @IBOutlet weak var Risk: UILabel!
     
+    @IBOutlet weak var tableView: UITableView!
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
@@ -64,10 +65,21 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     
     var windSpeed: String?
     var visibility: String?
+    var dewPoint: String?
     
-    
+    lazy var InfoLayout = [
+        "\(uviString ?? "----") - \(uviSafety ?? "----") \n UV Index",
+        "\(HumidityString ?? "----")",
+        "\(PressureString ?? "----")",
+        "\(windSpeed ?? "----")MPH \n Wind",
+        "\(visibility ?? "----")M \n Visibility",
+        "\(stringSunriseDate ?? "-----")",
+        "\(stringSunsetDate ?? "-----")"
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.dataSource = self
         
         //make button look good.
         viewDataButton.layer.cornerRadius = 10
@@ -75,9 +87,10 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         
         //make label look good
         Health.layer.cornerRadius = 15
-        Health.layer.borderWidth = 14.0
-        Health.layer.borderColor = UIColor.systemGray3.withAlphaComponent(0.46).cgColor
         Health.layer.backgroundColor=UIColor.systemGray4.withAlphaComponent(0.35).cgColor
+        
+        tableView.layer.cornerRadius = 35
+        tableView.backgroundColor=UIColor.systemGray4.withAlphaComponent(0.35)
         
         
         locationManager.delegate = self
@@ -96,10 +109,11 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         
         DispatchQueue.main.async {
             
-            //self.Health.text = "\(covidInfo.CaseDensitySafety)"
+            self.Health.text = "\(covidInfo.CaseDensitySafety)"
             self.Risk.text = " \(covidInfo.InfectionRateString)% "
             self.CovidInfection = covidInfo.InfectionRateString
             self.CaseDensity = covidInfo.CaseDensityString
+            self.tableView.reloadData()
         }
          
     }
@@ -123,15 +137,30 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
             destinationVC.FeelsLikeString = FeelsLikeString
             destinationVC.PressureString = PressureString
             destinationVC.HumidityString = HumidityString
-            destinationVC.humiditySafety = humiditySafety
+            //destinationVC.humiditySafety = humiditySafety
             destinationVC.uviString = uviString
             destinationVC.uviSafety = uviSafety
             destinationVC.windSpeed = windSpeed
             destinationVC.visibility = visibility
+            destinationVC.dewPoint = dewPoint
         }
     }
     
 
+}
+extension WeatherViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return InfoLayout.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
+        cell.textLabel?.text = InfoLayout[indexPath.row]
+        
+        return cell
+    }
+    
+    
 }
 
 //MARK: - UITextFieldDelegate
@@ -237,23 +266,33 @@ extension WeatherViewController: infoManagerDelegate{
             let stringSunsetDate = timeFormatter.string(from: sunsetDate as Date)
             
             self.Date = "Date: \(Date)"
-            self.stringSunriseDate = "Sunrise: \n\(stringSunriseDate)"
-            self.stringSunsetDate = "Sunset: \n\(stringSunsetDate)"
+            self.stringSunriseDate = "\(stringSunriseDate) \n Sunrise"
+            self.stringSunsetDate = "\(stringSunsetDate) \n Sunset"
             
             self.TemperatureString = "Temp: \(weatherInfo.TemperatureString)F"
-            self.FeelsLikeString = "Feels like: \(weatherInfo.FeelsLikeString)F"
+            self.FeelsLikeString = "Feels like: \n \(weatherInfo.FeelsLikeString)F "
             
-            self.PressureString = "\(weatherInfo.PressureString)hPa"
-            self.HumidityString = "\(weatherInfo.HumidityString)%"
-            self.humiditySafety = "\(weatherInfo.humiditySafety)"
+            self.PressureString = "\(weatherInfo.PressureString)hPa\n Pressure"
+            self.HumidityString = "\(weatherInfo.HumidityString)%-\(weatherInfo.humiditySafety)\n Humidity"
+            //self.humiditySafety = "\(weatherInfo.humiditySafety)"
             
             self.uviString = "\(weatherInfo.uviString)"
             self.uviSafety = "\(weatherInfo.uviSafety)"
             
             self.windSpeed = "\(weatherInfo.windSpeedString)"
             self.visibility = "\(weatherInfo.Visibility)"
+            self.dewPoint = "\(weatherInfo.DewPoint)F\n Dew Point"
             
-            self.Health.text = self.uviSafety
+            self.InfoLayout = [
+                "\(self.uviString ?? "----") - \(self.uviSafety ?? "----") \n UV Index",
+                "\(self.HumidityString ?? "----")",
+                "\(self.PressureString ?? "----")",
+                "\(self.windSpeed ?? "----")MPH \n Wind",
+                "\(self.visibility ?? "----")M \n Visibility",
+                "\(self.stringSunriseDate ?? "-----")",
+                "\(self.stringSunsetDate ?? "-----")"
+            ]
+            self.tableView.reloadData()
 
         }
     }

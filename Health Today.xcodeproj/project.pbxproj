@@ -26,6 +26,7 @@
 		CC8D724D257DCAAC00CAFF70 /* covidModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8D724C257DCAAC00CAFF70 /* covidModel.swift */; };
 		CC8D7250257DCABA00CAFF70 /* covidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8D724F257DCABA00CAFF70 /* covidManager.swift */; };
 		CC9AB0CE256EDACD00B1D951 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9AB0CD256EDACD00B1D951 /* WeatherModel.swift */; };
+		CCA21A862595227B0081420B /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA21A852595227B0081420B /* ColorManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		CC8D724C257DCAAC00CAFF70 /* covidModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = covidModel.swift; sourceTree = "<group>"; };
 		CC8D724F257DCABA00CAFF70 /* covidManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = covidManager.swift; sourceTree = "<group>"; };
 		CC9AB0CD256EDACD00B1D951 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		CCA21A852595227B0081420B /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				CC8D7249257DCA9A00CAFF70 /* covidData.swift */,
 				CC8D724C257DCAAC00CAFF70 /* covidModel.swift */,
 				CC8D724F257DCABA00CAFF70 /* covidManager.swift */,
+				CCA21A852595227B0081420B /* ColorManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				CC8D7247257C4BF100CAFF70 /* getFipsManager.swift in Sources */,
 				ADAA27B1231BBFAF00365194 /* AppDelegate.swift in Sources */,
 				CC8D724A257DCA9A00CAFF70 /* covidData.swift in Sources */,
+				CCA21A862595227B0081420B /* ColorManager.swift in Sources */,
 				CC8D724D257DCAAC00CAFF70 /* covidModel.swift in Sources */,
 				CC05FBFB2578495700C9ED7D /* infoManager.swift in Sources */,
 				CC7B6E09256DE9D60020308B /* WeatherManager.swift in Sources */,
@@ -364,7 +368,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0004;
+				CURRENT_PROJECT_VERSION = 0005;
 				DEVELOPMENT_TEAM = FR94884C36;
 				INFOPLIST_FILE = "Health Today/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -386,7 +390,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0004;
+				CURRENT_PROJECT_VERSION = 0005;
 				DEVELOPMENT_TEAM = FR94884C36;
 				INFOPLIST_FILE = "Health Today/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

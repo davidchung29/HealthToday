@@ -1,9 +1,7 @@
 //
 //  WeatherModel.swift
-//  Clima
 //
 //  Created by David Jr on 11/25/20.
-//  Copyright © 2020 App Brewery. All rights reserved.
 //
 
 import Foundation

@@ -1,9 +1,7 @@
 //
 //  infoData.swift
-//  Clima
 //
 //  Created by David Jr on 12/2/20.
-//  Copyright © 2020 App Brewery. All rights reserved.
 //
 
 import Foundation
@@ -20,10 +18,10 @@ struct Current: Decodable{
     let pressure: Int
     let humidity: Int
     let uvi: Double
-//
+
     let wind_speed: Double
     let visibility: Double
-//    let wind_deg: Double
+    let dew_point: Double
 //    let wind_gust: Double
 }
 

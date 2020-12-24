@@ -1,9 +1,7 @@
 //
 //  infoModel.swift
-//  Clima
 //
 //  Created by David Jr on 12/2/20.
-//  Copyright © 2020 App Brewery. All rights reserved.
 //
 
 import Foundation
@@ -18,6 +16,7 @@ struct infoModel{
     let uviValue: Double
     let windSpeed:Double
     let Visibility: Double
+    let DewPoint: Double
     
     var TemperatureString: String{
         String(format: "%.1f", Temperature)

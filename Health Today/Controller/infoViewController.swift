@@ -1,9 +1,7 @@
 //
 //  infoViewController.swift
-//  Clima
 //
 //  Created by David Jr on 12/2/20.
-//  Copyright © 2020 App Brewery. All rights reserved.
 //
 
 import UIKit
@@ -15,25 +13,9 @@ class infoViewController: UIViewController{
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var feelsLike: UILabel!
-    @IBOutlet weak var pressureLabel: UILabel!
-    @IBOutlet weak var pressureStringLabel: UILabel!
-    @IBOutlet weak var humidityLabel: UILabel!
-    @IBOutlet weak var uviLabel: UILabel!
-    @IBOutlet weak var uviSafetyLabel: UILabel!
-    @IBOutlet weak var humiditySafetyLabel: UILabel!
-    @IBOutlet weak var covidLabel: UILabel!
-    @IBOutlet weak var caseDensityLabel: UILabel!
     
-    @IBOutlet weak var uviStringLabel: UILabel!
-    @IBOutlet weak var humidityStringLabel: UILabel!
-    @IBOutlet weak var covidView: UIView!
-    @IBOutlet weak var pressureView: UIView!
-    @IBOutlet weak var tempView: UIView!
-    @IBOutlet weak var humidityView: UIView!
-    @IBOutlet weak var uviView: UIView!
-    @IBOutlet weak var SunView: UIView!
+    @IBOutlet weak var tableView: UITableView!
     
     
     var Risk:String?
@@ -59,73 +41,64 @@ class infoViewController: UIViewController{
     
     var windSpeed: String?
     var visibility: String?
+    var dewPoint: String?
+    lazy var InfoLayout = [
+        "\(uviString ?? "----") - \(uviSafety ?? "----") \n UV Index",
+        "\(HumidityString ?? "----")",
+        "\(PressureString ?? "----")",
+        "\(windSpeed ?? "----")MPH \n Wind",
+        "\(visibility ?? "----")M \n Visibility",
+        "\(stringSunriseDate ?? "-----")",
+        "\(stringSunsetDate ?? "-----")"
+        
+
+        
+    ]
+    
+    
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //label Aesthetics
+        tableView.dataSource = self
         
-        //view Aesthetics
-        uviView.layer.cornerRadius = 30
-        uviView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
+            //view Aesthetics
+        tableView.layer.cornerRadius = 35
+        tableView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
         
-        SunView.layer.cornerRadius = 30
-        SunView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
-        
-        tempView.layer.cornerRadius = 30
-        tempView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
-        
-        
-//
-//        pressureStringLabel.layer.cornerRadius = 10
-//        pressureStringLabel.layer.backgroundColor=UIColor.systemGray2.withAlphaComponent(0.53).cgColor
-//
-//        humidityStringLabel.layer.cornerRadius = 10
-//        humidityStringLabel.layer.backgroundColor=UIColor.systemGray2.withAlphaComponent(0.53).cgColor
-//
-//        uviStringLabel.layer.cornerRadius = 10
-//        uviStringLabel.layer.backgroundColor=UIColor.systemGray2.withAlphaComponent(0.53).cgColor
-        
-        
-        pressureView.layer.cornerRadius = 20
-        pressureView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
-        
-        humidityView.layer.cornerRadius = 20
-        humidityView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
-        
-        covidView.layer.cornerRadius = 20
-        covidView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.49)
-        //backLabel Aesthetics
         backLabel.layer.cornerRadius = 10
         backLabel.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.43)
         
-        self.covidLabel.text = "Wind Speed:\(windSpeed ?? "----")MPH"
-        self.caseDensityLabel.text = "Visibility: \(visibility ?? "----")M"
-
         //self.covidLabel.text = "Infection Rate: \(covidInfection ?? "----")%"
         //self.caseDensityLabel.text = "\(caseDensity ?? "----")/100,000 Infected"
         
-        self.dateLabel.text = "\(Date ?? "----")"
-        self.sunriseLabel.text = "\(stringSunriseDate ?? "----")"
-        self.sunsetLabel.text = "\(stringSunsetDate ?? "----")"
-    
-        self.tempLabel.text = "\(TemperatureString ?? "----")"
-        self.feelsLike.text = "\(FeelsLikeString ?? "----")"
-        self.pressureLabel.text = "\(PressureString ?? "----")"
-        self.humidityLabel.text = "\(HumidityString ?? "----")"
-        self.humiditySafetyLabel.text = "\(humiditySafety ?? "----")"
+        self.dateLabel.text = "\(Date ?? "-----")"
+        self.sunriseLabel.text = "Infection Rate: \(Risk ?? "----")%"
+        self.sunsetLabel.text = "\(caseDensity ?? "----")/100,000 Infected"
         
-        self.uviLabel.text = "\(uviString ?? "----")"
-        self.uviSafetyLabel.text = "\(uviSafety ?? "----")"
+        
         
     }
     
 
 }
 
+extension infoViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return InfoLayout.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
+        cell.textLabel?.text = InfoLayout[indexPath.row]
+        
+        return cell
+    }
+    
+    
+}
 
 
 
