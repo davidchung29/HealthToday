@@ -16,10 +16,11 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var viewDataButton: UIButton!
     @IBOutlet weak var Health: UILabel!
     @IBOutlet weak var Risk: UILabel!
     
+    @IBOutlet weak var WeatherView: UIStackView!
+    @IBOutlet weak var HealthView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     var weatherManager = WeatherManager()
@@ -70,16 +71,12 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         
         tableView.dataSource = self
         
-        //make button look good.
-        viewDataButton.layer.cornerRadius = 10
-        viewDataButton.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.43)
-        
         //make label look good
         Health.layer.cornerRadius = 15
         Health.layer.backgroundColor=UIColor.systemGray4.withAlphaComponent(0.35).cgColor
         
         tableView.layer.cornerRadius = 35
-        tableView.backgroundColor=UIColor.systemGray4.withAlphaComponent(0.35)
+        tableView.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.35)
         
         
         locationManager.delegate = self
@@ -109,30 +106,30 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     func didFailCovid(error: Error) {
         print(error)
     }
-    @IBAction func viewDataPressed(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "goToInfo", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToInfo"{
-            let destinationVC = segue.destination as! infoViewController
-            destinationVC.Risk = CovidInfection
-            destinationVC.caseDensity = CaseDensity
-            destinationVC.Date = Date
-            destinationVC.stringSunriseDate = stringSunriseDate
-            destinationVC.stringSunsetDate = stringSunsetDate
-            destinationVC.TemperatureString = TemperatureString
-            destinationVC.FeelsLikeString = FeelsLikeString
-            destinationVC.PressureString = PressureString
-            destinationVC.HumidityString = HumidityString
-            //destinationVC.humiditySafety = humiditySafety
-            destinationVC.uviString = uviString
-            destinationVC.uviSafety = uviSafety
-            destinationVC.windSpeed = windSpeed
-            destinationVC.visibility = visibility
-            destinationVC.dewPoint = dewPoint
-        }
-    }
+//    @IBAction func viewDataPressed(_ sender: UIButton) {
+//        self.performSegue(withIdentifier: "goToInfo", sender: self)
+//    }
+//    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "goToInfo"{
+//            let destinationVC = segue.destination as! infoViewController
+//            destinationVC.Risk = CovidInfection
+//            destinationVC.caseDensity = CaseDensity
+//            destinationVC.Date = Date
+//            destinationVC.stringSunriseDate = stringSunriseDate
+//            destinationVC.stringSunsetDate = stringSunsetDate
+//            destinationVC.TemperatureString = TemperatureString
+//            destinationVC.FeelsLikeString = FeelsLikeString
+//            destinationVC.PressureString = PressureString
+//            destinationVC.HumidityString = HumidityString
+//            //destinationVC.humiditySafety = humiditySafety
+//            destinationVC.uviString = uviString
+//            destinationVC.uviSafety = uviSafety
+//            destinationVC.windSpeed = windSpeed
+//            destinationVC.visibility = visibility
+//            destinationVC.dewPoint = dewPoint
+//        }
+//    }
     
 
 }
@@ -178,6 +175,7 @@ extension WeatherViewController: UITextFieldDelegate {
         if let city = searchTextField.text {
             weatherManager.fetchWeather(cityName: city)
             infoManager.fetchInfoWeather(latitude: lat ?? 0, longitute: lon ?? 0)
+            
         }
         
         searchTextField.text = ""
@@ -196,7 +194,7 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.cityLabel.text = weather.cityName
             self.lat = weather.lat
             self.lon = weather.lon
-            print("requested lon\(self.lon), lat\(self.lat)")
+            print("requested lon\(self.lon ?? 1), lat\(self.lat ?? 1)")
             
         }
     }
