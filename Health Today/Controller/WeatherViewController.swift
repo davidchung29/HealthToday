@@ -1,25 +1,9 @@
-//uncomment line 99
+
 //
 //  ViewController.swift
-//  Clima
+//  Health Today
 //
-//  Created by Angela Yu on 01/09/2019.
-//  Copyright © 2019 App Brewery. All rights reserved.
-//
-//        z
-//        weather_manager.delegate = self
-//        searchTextField.delegate = self
-//
-//        let gradientLayer = CAGradientLayer()
-//        // Set the size of the layer to be equal to size of the display.
-//        gradientLayer.frame = view.bounds
-//        // Set an array of Core Graphics colors (.cgColor) to create the gradient.
-//        // This example uses a Color Literal and a UIColor from RGB values.
-//        gradientLayer.colors = [#colorLiteral(red: 0, green: 0.5725490196, blue: 0.2705882353, alpha: 1).cgColor, UIColor(red: 252/255, green: 238/255, blue: 33/255, alpha: 1).cgColor]
-//        // Rasterize this static layer to improve app performance.
-//        gradientLayer.shouldRasterize = true
-//        // Apply the gradient to the backgroundGradientView.
-//        backgroundView.layer.addSublayer(gradientLayer)
+//  Created by David Chung
 
 import UIKit
 import CoreLocation
@@ -67,6 +51,9 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     var visibility: String?
     var dewPoint: String?
     
+    var lat: Double?
+    var lon: Double?
+    
     lazy var InfoLayout = [
         "\(uviString ?? "----") - \(uviSafety ?? "----") \n UV Index",
         "\(HumidityString ?? "----")",
@@ -78,6 +65,8 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("loaded")
+        
         
         tableView.dataSource = self
         
@@ -106,7 +95,6 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         
     }
     func didUpdateCovid(_ covidManager: covidManager, covidInfo: covidModel) {
-        
         DispatchQueue.main.async {
             
             self.Health.text = "\(covidInfo.CaseDensitySafety)"
@@ -168,6 +156,7 @@ extension WeatherViewController: UITextFieldDelegate {
     
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
+    
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -188,6 +177,7 @@ extension WeatherViewController: UITextFieldDelegate {
         
         if let city = searchTextField.text {
             weatherManager.fetchWeather(cityName: city)
+            infoManager.fetchInfoWeather(latitude: lat ?? 0, longitute: lon ?? 0)
         }
         
         searchTextField.text = ""
@@ -204,6 +194,9 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.temperatureLabel.text = weather.temperatureString
             self.conditionImageView.image = UIImage(systemName: weather.conditionName)
             self.cityLabel.text = weather.cityName
+            self.lat = weather.lat
+            self.lon = weather.lon
+            print("requested lon\(self.lon), lat\(self.lat)")
             
         }
     }
@@ -274,7 +267,6 @@ extension WeatherViewController: infoManagerDelegate{
             
             self.PressureString = "\(weatherInfo.PressureString)hPa\n Pressure"
             self.HumidityString = "\(weatherInfo.HumidityString)%-\(weatherInfo.humiditySafety)\n Humidity"
-            //self.humiditySafety = "\(weatherInfo.humiditySafety)"
             
             self.uviString = "\(weatherInfo.uviString)"
             self.uviSafety = "\(weatherInfo.uviSafety)"

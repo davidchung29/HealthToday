@@ -52,8 +52,10 @@ struct WeatherManager {
             let id = decodedData.weather[0].id
             let temp = decodedData.main.temp
             let name = decodedData.name
+            let latitude = decodedData.coord.lat
+            let longitude = decodedData.coord.lon
             
-            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp)
+            let weather = WeatherModel(lat: latitude, lon: longitude, conditionId: id, cityName: name, temperature: temp)
             return weather
             
         } catch {
