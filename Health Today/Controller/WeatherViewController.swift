@@ -72,7 +72,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         tableView.dataSource = self
         
         //make label look good
-        HealthView.layer.cornerRadius = 15
+        HealthView.layer.cornerRadius = 35
         HealthView.layer.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.35).cgColor
         
         tableView.layer.cornerRadius = 35
