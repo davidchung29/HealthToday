@@ -279,7 +279,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
 extension WeatherViewController: infoManagerDelegate{
 
     func didUpdateWeatherInfo(_ infoManager: InfoManager, weatherInfo: infoModel) {
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async {
             let sunriseDate = NSDate(timeIntervalSince1970: weatherInfo.Sunrise)
             let sunsetDate = NSDate(timeIntervalSince1970: weatherInfo.Sunset)
             let dateFormatter = DateFormatter()
