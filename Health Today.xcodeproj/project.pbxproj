@@ -26,7 +26,10 @@
 		CC8D724D257DCAAC00CAFF70 /* covidModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8D724C257DCAAC00CAFF70 /* covidModel.swift */; };
 		CC8D7250257DCABA00CAFF70 /* covidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8D724F257DCABA00CAFF70 /* covidManager.swift */; };
 		CC9AB0CE256EDACD00B1D951 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9AB0CD256EDACD00B1D951 /* WeatherModel.swift */; };
-		CCA21A862595227B0081420B /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA21A852595227B0081420B /* ColorManager.swift */; };
+		CCA21AA12597AD8D0081420B /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA21A9F2597AD8D0081420B /* InfoCell.swift */; };
+		CCA21AA22597AD8D0081420B /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCA21AA02597AD8D0081420B /* InfoCell.xib */; };
+		CCA21AA72597C8390081420B /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA21AA62597C8380081420B /* Information.swift */; };
+		CCA21AAA25985A0A0081420B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA21AA925985A090081420B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +54,10 @@
 		CC8D724C257DCAAC00CAFF70 /* covidModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = covidModel.swift; sourceTree = "<group>"; };
 		CC8D724F257DCABA00CAFF70 /* covidManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = covidManager.swift; sourceTree = "<group>"; };
 		CC9AB0CD256EDACD00B1D951 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		CCA21A852595227B0081420B /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		CCA21A9F2597AD8D0081420B /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoCell.swift; path = "Health Today/Model/InfoCell.swift"; sourceTree = SOURCE_ROOT; };
+		CCA21AA02597AD8D0081420B /* InfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoCell.xib; path = "Health Today/Model/InfoCell.xib"; sourceTree = SOURCE_ROOT; };
+		CCA21AA62597C8380081420B /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
+		CCA21AA925985A090081420B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,7 @@
 			children = (
 				ADAA27B0231BBFAF00365194 /* AppDelegate.swift */,
 				ADAA27B2231BBFAF00365194 /* SceneDelegate.swift */,
+				CCA21AA925985A090081420B /* Constants.swift */,
 				CC7B6E0B256DE9DD0020308B /* Model */,
 				ADAA27C9231BC3F200365194 /* View */,
 				ADAA27C8231BC3E500365194 /* Controller */,
@@ -108,6 +115,8 @@
 		ADAA27C9231BC3F200365194 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CCA21A9F2597AD8D0081420B /* InfoCell.swift */,
+				CCA21AA02597AD8D0081420B /* InfoCell.xib */,
 				ADAA27B6231BBFAF00365194 /* Main.storyboard */,
 			);
 			path = View;
@@ -128,7 +137,7 @@
 				CC8D7249257DCA9A00CAFF70 /* covidData.swift */,
 				CC8D724C257DCAAC00CAFF70 /* covidModel.swift */,
 				CC8D724F257DCABA00CAFF70 /* covidManager.swift */,
-				CCA21A852595227B0081420B /* ColorManager.swift */,
+				CCA21AA62597C8380081420B /* Information.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADAA27BD231BBFB300365194 /* LaunchScreen.storyboard in Resources */,
+				CCA21AA22597AD8D0081420B /* InfoCell.xib in Resources */,
 				ADAA27BA231BBFB300365194 /* Assets.xcassets in Resources */,
 				ADAA27B8231BBFAF00365194 /* Main.storyboard in Resources */,
 			);
@@ -204,15 +214,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCA21AA72597C8390081420B /* Information.swift in Sources */,
+				CCA21AAA25985A0A0081420B /* Constants.swift in Sources */,
 				CC8D7244257C4BB600CAFF70 /* getFipsModel.swift in Sources */,
 				ADAA27B5231BBFAF00365194 /* WeatherViewController.swift in Sources */,
 				CC7B6E0E256EA4010020308B /* WeatherData.swift in Sources */,
 				CC05FBFE257849C700C9ED7D /* infoData.swift in Sources */,
 				CC8D7241257C4B1700CAFF70 /* getFipsData.swift in Sources */,
+				CCA21AA12597AD8D0081420B /* InfoCell.swift in Sources */,
 				CC8D7247257C4BF100CAFF70 /* getFipsManager.swift in Sources */,
 				ADAA27B1231BBFAF00365194 /* AppDelegate.swift in Sources */,
 				CC8D724A257DCA9A00CAFF70 /* covidData.swift in Sources */,
-				CCA21A862595227B0081420B /* ColorManager.swift in Sources */,
 				CC8D724D257DCAAC00CAFF70 /* covidModel.swift in Sources */,
 				CC05FBFB2578495700C9ED7D /* infoManager.swift in Sources */,
 				CC7B6E09256DE9D60020308B /* WeatherManager.swift in Sources */,

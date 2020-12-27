@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-class WeatherViewController: UIViewController, covidManagerDelegate{
+class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManagerDelegate{
 
     
     
@@ -49,20 +49,24 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
     var uviSafety: String?
     
     var windSpeed: String?
+    var windClass: String?
+    var knots: String?
     var visibility: String?
     var dewPoint: String?
     
     var lat: Double?
     var lon: Double?
     
-    lazy var InfoLayout = [
-        "\(uviString ?? "----") - \(uviSafety ?? "----") \n UV Index",
-        "\(HumidityString ?? "----")",
-        "\(PressureString ?? "----")",
-        "\(windSpeed ?? "----")MPH \n Wind",
-        "\(visibility ?? "----")M \n Visibility",
-        "\(stringSunriseDate ?? "-----")",
-        "\(stringSunsetDate ?? "-----")"
+    
+    lazy var InfoLayout: [Information] = [
+        Information(sender: K.Info.UVI , body: "\(uviString ?? "----")  \(uviSafety ?? "----") \n UV Index"),
+        Information(sender: K.Info.Humidity, body: "\(HumidityString ?? "----")"),
+        Information(sender: K.Info.Pressure, body: "\(PressureString ?? "----")"),
+        Information(sender: K.Info.WindSpeed, body: "\(windSpeed ?? "----")MPH \n Wind"),
+        Information(sender: K.Info.Visibility, body: "\(visibility ?? "----")M \n Visibility"),
+        Information(sender: K.Info.DewPoint, body: "\(dewPoint ?? "-----")F"),
+        Information(sender: K.Info.Sunrise, body: "\(stringSunriseDate ?? "-----")"),
+        Information(sender: K.Info.Sunset, body: "\(stringSunsetDate ?? "-----")")
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +94,26 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
         CovidManager.delegate = self
         infoManager.delegate = self
         
+        tableView.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
+        
+        //hides extra table view cells by createing a uiview over it
+        tableView.tableFooterView = UIView()
+        
+    }
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+        DispatchQueue.main.async {
+            self.temperatureLabel.text = "\(weather.temperatureString)°F"
+            self.conditionImageView.image = UIImage(systemName: weather.conditionName)
+            self.cityLabel.text = weather.cityName
+            self.lat = weather.lat
+            self.lon = weather.lon
+            print("requested lon\(self.lon ?? 1), lat\(self.lat ?? 1)")
+            
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
     }
     func didUpdateCovid(_ covidManager: covidManager, covidInfo: covidModel) {
         DispatchQueue.main.async {
@@ -135,14 +159,43 @@ class WeatherViewController: UIViewController, covidManagerDelegate{
 }
 extension WeatherViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         return InfoLayout.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
-        cell.textLabel?.text = InfoLayout[indexPath.row]
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
+//        cell.textLabel?.text = InfoLayout[indexPath.row]
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! InfoCell
+        cell.infoLabel.text = InfoLayout[indexPath.row].body
+        cell.infoDescription.text = InfoLayout[indexPath.row].sender
+        
+        switch InfoLayout[indexPath.row].sender {
+
+        case K.Info.UVI:
+            cell.infoView?.image = #imageLiteral(resourceName: "UVI")
+        case K.Info.Humidity:
+            cell.infoView?.image = #imageLiteral(resourceName: "Hygrometer")
+        case K.Info.Pressure:
+            cell.infoView?.image = #imageLiteral(resourceName: "pressure")
+        case K.Info.WindSpeed:
+            cell.infoView?.image = UIImage(named: "Wind\(windClass ?? "0")" )
+        case K.Info.Visibility:
+            cell.infoView?.image = #imageLiteral(resourceName: "Visibility")
+        case K.Info.DewPoint:
+            cell.infoView?.image = #imageLiteral(resourceName: "dewPoint")
+        case K.Info.Sunrise:
+            cell.infoView?.image = #imageLiteral(resourceName: "sunrise")
+        case K.Info.Sunset:
+            cell.infoView?.image = #imageLiteral(resourceName: "sunset")
+            
+        default:
+            print("unknown sender")
+        }
+            
         return cell
+        
     }
     
     
@@ -163,6 +216,7 @@ extension WeatherViewController: UITextFieldDelegate {
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
+            self.tableView.reloadData()
             return true
         } else {
             textField.placeholder = "Type something"
@@ -183,26 +237,8 @@ extension WeatherViewController: UITextFieldDelegate {
     }
 }
 
-//MARK: - WeatherManagerDelegate
 
-extension WeatherViewController: WeatherManagerDelegate {
-    
-    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
-        DispatchQueue.main.async {
-            self.temperatureLabel.text = weather.temperatureString
-            self.conditionImageView.image = UIImage(systemName: weather.conditionName)
-            self.cityLabel.text = weather.cityName
-            self.lat = weather.lat
-            self.lon = weather.lon
-            print("requested lon\(self.lon ?? 1), lat\(self.lat ?? 1)")
-            
-        }
-    }
-    
-    func didFailWithError(error: Error) {
-        print(error)
-    }
-}
+
 
 //MARK: - CLLocationManagerDelegate
 
@@ -229,6 +265,58 @@ extension WeatherViewController: CLLocationManagerDelegate {
     }
 }
 
+extension WeatherViewController: infoManagerDelegate{
+
+    func didUpdateWeatherInfo(_ infoManager: InfoManager, weatherInfo: infoModel) {
+        DispatchQueue.main.async { [self] in
+            let sunriseDate = NSDate(timeIntervalSince1970: weatherInfo.Sunrise)
+            let sunsetDate = NSDate(timeIntervalSince1970: weatherInfo.Sunset)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM-dd-yyyy"
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "hh:mm:ss a"
+            let Date = dateFormatter.string(from: sunriseDate as Date)
+            let stringSunriseDate = timeFormatter.string(from: sunriseDate as Date)
+            let stringSunsetDate = timeFormatter.string(from: sunsetDate as Date)
+            
+            self.Date = "Date: \(Date)"
+            self.stringSunriseDate = "\(stringSunriseDate)"
+            self.stringSunsetDate = "\(stringSunsetDate)"
+            
+            self.TemperatureString = "\(weatherInfo.TemperatureString)°F"
+            self.FeelsLikeString = "Feels like: \n \(weatherInfo.FeelsLikeString)°F "
+            
+            self.PressureString = "\(weatherInfo.PressureString)hPa"
+            self.HumidityString = "\(weatherInfo.HumidityString)% \(weatherInfo.humiditySafety)"
+            
+            self.uviString = "\(weatherInfo.uviString)"
+            self.uviSafety = "\(weatherInfo.uviSafety)"
+            
+            self.windSpeed = "\(weatherInfo.windSpeedString)"
+            self.windClass = "\(weatherInfo.windClass)"
+            self.knots = "\(weatherInfo.knots)"
+            self.visibility = "\(weatherInfo.visibilityString)"
+            self.dewPoint = "\(weatherInfo.DewPoint)°F"
+            
+            self.InfoLayout = [
+                Information(sender: K.Info.UVI , body: "\(self.uviString ?? "----") \(self.uviSafety ?? "----")"),
+                Information(sender: K.Info.Humidity, body: "\(self.HumidityString ?? "----")"),
+                Information(sender: K.Info.Pressure, body: "\(self.PressureString ?? "----")"),
+                Information(sender: K.Info.WindSpeed, body: "\(self.knots ?? "----") MPH"),
+                Information(sender: K.Info.Visibility, body: "\(self.visibility ?? "----") Miles"),
+                Information(sender: K.Info.DewPoint, body: "\(self.dewPoint ?? "-----")°F"),
+                Information(sender: K.Info.Sunrise, body: "\(stringSunriseDate )"),
+                Information(sender: K.Info.Sunset, body: "\(stringSunsetDate )")
+            ]
+            self.tableView.reloadData()
+
+        }
+    }
+    func didFailWithInfo(error: Error) {
+        print(error)
+    }
+}
+
 extension WeatherViewController: getFipsManagerDelegate{
     func didUpdateFips(_ getFipsManager: getFipsManager, fipsInfo: getFipsModel) {
         DispatchQueue.main.async {
@@ -242,51 +330,4 @@ extension WeatherViewController: getFipsManagerDelegate{
 }
 
 
-extension WeatherViewController: infoManagerDelegate{
 
-    func didUpdateWeatherInfo(_ infoManager: InfoManager, weatherInfo: infoModel) {
-        DispatchQueue.main.async {
-            let sunriseDate = NSDate(timeIntervalSince1970: weatherInfo.Sunrise)
-            let sunsetDate = NSDate(timeIntervalSince1970: weatherInfo.Sunset)
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM-dd-yyyy"
-            let timeFormatter = DateFormatter()
-            timeFormatter.dateFormat = "hh:mm:ss a"
-            let Date = dateFormatter.string(from: sunriseDate as Date)
-            let stringSunriseDate = timeFormatter.string(from: sunriseDate as Date)
-            let stringSunsetDate = timeFormatter.string(from: sunsetDate as Date)
-            
-            self.Date = "Date: \(Date)"
-            self.stringSunriseDate = "\(stringSunriseDate) \n Sunrise"
-            self.stringSunsetDate = "\(stringSunsetDate) \n Sunset"
-            
-            self.TemperatureString = "Temp: \(weatherInfo.TemperatureString)F"
-            self.FeelsLikeString = "Feels like: \n \(weatherInfo.FeelsLikeString)F "
-            
-            self.PressureString = "\(weatherInfo.PressureString)hPa\n Pressure"
-            self.HumidityString = "\(weatherInfo.HumidityString)%-\(weatherInfo.humiditySafety)\n Humidity"
-            
-            self.uviString = "\(weatherInfo.uviString)"
-            self.uviSafety = "\(weatherInfo.uviSafety)"
-            
-            self.windSpeed = "\(weatherInfo.windSpeedString)"
-            self.visibility = "\(weatherInfo.Visibility)"
-            self.dewPoint = "\(weatherInfo.DewPoint)F\n Dew Point"
-            
-            self.InfoLayout = [
-                "\(self.uviString ?? "----") - \(self.uviSafety ?? "----") \n UV Index",
-                "\(self.HumidityString ?? "----")",
-                "\(self.PressureString ?? "----")",
-                "\(self.windSpeed ?? "----")MPH \n Wind",
-                "\(self.visibility ?? "----")M \n Visibility",
-                "\(self.stringSunriseDate ?? "-----")",
-                "\(self.stringSunsetDate ?? "-----")"
-            ]
-            self.tableView.reloadData()
-
-        }
-    }
-    func didFailWithInfo(error: Error) {
-        print(error)
-    }
-}

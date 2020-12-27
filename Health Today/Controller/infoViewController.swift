@@ -3,9 +3,10 @@
 //
 //  Created by David Jr on 12/2/20.
 //
+//
 
-import UIKit
-import CoreLocation
+//import UIKit
+//import CoreLocation
 
 //class infoViewController: UIViewController{
 //    //  label/buttons
