@@ -45,6 +45,7 @@ struct InfoManager{
     func parseJSON(_ dataInfo: Data) -> infoModel? {
         let decoder = JSONDecoder()
         do {
+            
             let decodedData = try decoder.decode(infoData.self, from: dataInfo)
             let sunrise = decodedData.current.sunrise
             let sunset = decodedData.current.sunset
@@ -56,13 +57,13 @@ struct InfoManager{
             let wind_speed = decodedData.current.wind_speed
             let visibility = decodedData.current.visibility
             let dewPoint = decodedData.current.dew_point
-            print(sunrise)
-            print(sunset)
+            
             let weatherInfo = infoModel(Sunrise: sunrise, Sunset: sunset, Temperature: temperature, FeelsLike: feelsLike, Pressure: pressure, Humidity: humidity, uviValue: uvi, windSpeed: wind_speed, Visibility: visibility, DewPoint: dewPoint)
             print("parseJSON info success!")
             return weatherInfo
 
         } catch {
+            
             delegate?.didFailWithInfo(error: error)
             print("parse Json info error")
             return nil

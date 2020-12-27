@@ -6,10 +6,12 @@
 
 import Foundation
 import CoreLocation
+
 protocol getFipsManagerDelegate {
     func didUpdateFips(_ getFipsManager: getFipsManager, fipsInfo: getFipsModel)
     func didFailWithFips(error: Error)
 }
+
 struct getFipsManager{
     var delegate: getFipsManagerDelegate?
     let fipsURL = "https://geo.fcc.gov/api/census/block/find?showall=false&format=json"

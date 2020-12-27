@@ -37,9 +37,13 @@ struct infoModel{
     var windSpeedString: String{
         String(windSpeed)
     }
+    var knots: Int{
+        Int(windSpeed*0.8689758)
+    }
     var visibilityString:String{
         String(Int(Visibility*0.0006213712))
     }
+    
     var uviSafety:String{
         switch uviValue {
         case 0.0..<3.0:
@@ -50,6 +54,7 @@ struct infoModel{
             return "Very High to Extreme"
         }
     }
+    
     var humiditySafety:String{
         switch Humidity {
         case 45...55:
@@ -59,9 +64,6 @@ struct infoModel{
         default:
             return "Humid"
         }
-    }
-    var knots: Int{
-        Int(windSpeed*0.8689758)
     }
     
     var windClass:Int{

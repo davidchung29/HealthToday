@@ -5,6 +5,7 @@
 //
 
 import Foundation
+
 struct getFipsData: Decodable{
     let results: [Results]
 }

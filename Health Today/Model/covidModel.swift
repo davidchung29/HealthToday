@@ -5,6 +5,7 @@
 //
 
 import Foundation
+
 struct covidModel: Decodable{
     let InfectionRate: Double
     let CaseDensity: Double
@@ -15,6 +16,7 @@ struct covidModel: Decodable{
     var CaseDensityString: String{
         String(format: "%.3f", CaseDensity)
     }
+    
     var CaseDensitySafety: String{
         switch CaseDensity {
         case 0..<5:

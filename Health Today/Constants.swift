@@ -8,6 +8,7 @@
 
 import Foundation
 
+//CONSTANTS FILE to manage Strings
 struct K{
     struct Info {
         static let UVI = "UVI"

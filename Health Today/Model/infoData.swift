@@ -10,6 +10,7 @@ struct infoData: Decodable{
     let current: Current
 
 }
+
 struct Current: Decodable{
     let sunrise: Double
     let sunset: Double

@@ -6,10 +6,14 @@
 
 import Foundation
 import CoreLocation
+
+
 protocol covidManagerDelegate {
     func didUpdateCovid(_ covidManager: covidManager, covidInfo: covidModel)
     func didFailCovid(error: Error)
 }
+
+
 struct covidManager{
     var delegate: covidManagerDelegate?
     let covidURL1 = "https://api.covidactnow.org/v2/county/"

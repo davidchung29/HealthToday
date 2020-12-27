@@ -8,7 +8,6 @@ import Foundation
 
 struct covidData: Decodable{
     let metrics: Metrics
-    
 }
 
 struct Metrics: Decodable{
