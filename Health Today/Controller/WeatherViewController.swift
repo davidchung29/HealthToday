@@ -10,26 +10,31 @@ import CoreLocation
 
 class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManagerDelegate{
 
+    //MARK: - Initialize and Link up to Storyboard
+
+    //Link Text Fields//
+    @IBOutlet weak var searchTextField: UITextField!
     
-    
-    @IBOutlet weak var conditionImageView: UIImageView!
+    //Link Labels//
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var Health: UILabel!
     @IBOutlet weak var Risk: UILabel!
     
+    //Link Views//
+    @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var WeatherView: UIStackView!
     @IBOutlet weak var HealthView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
-    var weatherManager = WeatherManager()
+    //Initialize Managers//
     let locationManager = CLLocationManager()
-    
+    var weatherManager = WeatherManager()
     var fipsManager = getFipsManager()
     var CovidManager = covidManager()
     var infoManager = InfoManager()
     
+    //Create variables
     var CovidInfection: String?
     var CaseDensity: String?
     
@@ -57,25 +62,18 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     var lat: Double?
     var lon: Double?
     
+    //create Layout for Table View
+    lazy var InfoLayout: [Information] = []
     
-    lazy var InfoLayout: [Information] = [
-        Information(sender: K.Info.UVI , body: "\(uviString ?? "----")  \(uviSafety ?? "----") \n UV Index"),
-        Information(sender: K.Info.Humidity, body: "\(HumidityString ?? "----")"),
-        Information(sender: K.Info.Pressure, body: "\(PressureString ?? "----")"),
-        Information(sender: K.Info.WindSpeed, body: "\(windSpeed ?? "----")MPH \n Wind"),
-        Information(sender: K.Info.Visibility, body: "\(visibility ?? "----")M \n Visibility"),
-        Information(sender: K.Info.DewPoint, body: "\(dewPoint ?? "-----")F"),
-        Information(sender: K.Info.Sunrise, body: "\(stringSunriseDate ?? "-----")"),
-        Information(sender: K.Info.Sunset, body: "\(stringSunsetDate ?? "-----")")
-    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
         
         
-        tableView.dataSource = self
+
         
-        //make label look good
+        //design UI Elements
         HealthView.layer.cornerRadius = 35
         HealthView.layer.backgroundColor=UIColor.systemGray3.withAlphaComponent(0.35).cgColor
         
@@ -88,26 +86,28 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         locationManager.requestLocation()
         
         weatherManager.delegate = self
-        searchTextField.delegate = self
-        
+
         fipsManager.delegate = self
         CovidManager.delegate = self
         infoManager.delegate = self
+        searchTextField.delegate = self
         
+        tableView.dataSource = self
+        //Creates Reusable cell for tableView with custom InfoCell
         tableView.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
-        
         //hides extra table view cells by createing a uiview over it
         tableView.tableFooterView = UIView()
         
     }
+    
+    //This function is called when WEATHER is UPDATED
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            self.temperatureLabel.text = "\(weather.temperatureString)°F"
             self.conditionImageView.image = UIImage(systemName: weather.conditionName)
+            self.temperatureLabel.text = "\(weather.temperatureString)°F"
             self.cityLabel.text = weather.cityName
             self.lat = weather.lat
             self.lon = weather.lon
-            print("requested lon\(self.lon ?? 1), lat\(self.lat ?? 1)")
             
         }
     }
@@ -115,6 +115,8 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     func didFailWithError(error: Error) {
         print(error)
     }
+    
+    //This function is called when the COVID data is UPDATED
     func didUpdateCovid(_ covidManager: covidManager, covidInfo: covidModel) {
         DispatchQueue.main.async {
             
@@ -130,6 +132,9 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     func didFailCovid(error: Error) {
         print(error)
     }
+    
+    
+// Uncomment the section below to SEND DATA to a DIFFERENT VIEW CONTROLLER
 //    @IBAction func viewDataPressed(_ sender: UIButton) {
 //        self.performSegue(withIdentifier: "goToInfo", sender: self)
 //    }
@@ -157,6 +162,9 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     
 
 }
+
+//MARK: - UITableViewDataSource
+//Creates and uses reusable cell for tableView
 extension WeatherViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -164,13 +172,15 @@ extension WeatherViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
-//        cell.textLabel?.text = InfoLayout[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! InfoCell
+        
+        //sets TEXT for each reusable tableView CELL
         cell.infoLabel.text = InfoLayout[indexPath.row].body
         cell.infoDescription.text = InfoLayout[indexPath.row].sender
         
+        
+        //SETS IMAGE for each reusable tableView CELL based on the cell identifier/sender
         switch InfoLayout[indexPath.row].sender {
 
         case K.Info.UVI:
@@ -265,6 +275,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
     }
 }
 
+//MARK: - infoManagerDelegate
 extension WeatherViewController: infoManagerDelegate{
 
     func didUpdateWeatherInfo(_ infoManager: InfoManager, weatherInfo: infoModel) {
@@ -317,6 +328,7 @@ extension WeatherViewController: infoManagerDelegate{
     }
 }
 
+//MARK: - getFipsManagerDelegate
 extension WeatherViewController: getFipsManagerDelegate{
     func didUpdateFips(_ getFipsManager: getFipsManager, fipsInfo: getFipsModel) {
         DispatchQueue.main.async {
