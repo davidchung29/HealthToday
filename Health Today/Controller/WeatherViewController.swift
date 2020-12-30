@@ -307,7 +307,7 @@ extension WeatherViewController: infoManagerDelegate{
             self.windClass = "\(weatherInfo.windClass)"
             self.knots = "\(weatherInfo.knots)"
             self.visibility = "\(weatherInfo.visibilityString)"
-            self.dewPoint = "\(weatherInfo.DewPoint)°F"
+            self.dewPoint = "\(weatherInfo.DewPoint)"
             
             self.InfoLayout = [
                 Information(sender: K.Info.UVI , body: "\(self.uviString ?? "----") \(self.uviSafety ?? "----")"),
