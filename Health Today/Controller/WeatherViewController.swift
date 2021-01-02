@@ -313,7 +313,7 @@ extension WeatherViewController: infoManagerDelegate{
                 Information(sender: K.Info.UVI , body: "\(self.uviString ?? "----") \(self.uviSafety ?? "----")"),
                 Information(sender: K.Info.Humidity, body: "\(self.HumidityString ?? "----")"),
                 Information(sender: K.Info.Pressure, body: "\(self.PressureString ?? "----")"),
-                Information(sender: K.Info.WindSpeed, body: "\(self.knots ?? "----") MPH"),
+                Information(sender: K.Info.WindSpeed, body: "\(self.knots ?? "----") Knots"),
                 Information(sender: K.Info.Visibility, body: "\(self.visibility ?? "----") Miles"),
                 Information(sender: K.Info.DewPoint, body: "\(self.dewPoint ?? "-----")°F"),
                 Information(sender: K.Info.Sunrise, body: "\(stringSunriseDate )"),
