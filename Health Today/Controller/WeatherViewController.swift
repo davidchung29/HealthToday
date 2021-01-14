@@ -8,6 +8,8 @@
 import UIKit
 import CoreLocation
 
+import PopupDialog
+
 class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManagerDelegate{
 
     //MARK: - Initialize and Link up to Storyboard
@@ -26,6 +28,10 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     @IBOutlet weak var WeatherView: UIStackView!
     @IBOutlet weak var HealthView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    
+    
+
+    
     
     //Initialize Managers//
     let locationManager = CLLocationManager()
@@ -98,6 +104,50 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         //hides extra table view cells by createing a uiview over it
         tableView.tableFooterView = UIView()
         
+        
+        
+    }
+    
+    
+    @IBAction func infoButton(_ sender: Any) {
+        
+        let title = "APIs being used"
+        let message = "CovidActNow API\nFCC Block API\nOpenWeatherMap API"
+        let buttonOne = CancelButton(title: "Cancel") {
+            print("You canceled the car dialog.")
+        }
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message, image: nil)
+        
+        
+        let dialogAppearance = PopupDialogDefaultView.appearance()
+
+        dialogAppearance.titleColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8470588235)
+        dialogAppearance.titleFont =  .systemFont(ofSize: 25)
+        dialogAppearance.messageColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8470588235)
+        dialogAppearance.messageFont = .systemFont(ofSize: 15)
+        
+        CancelButton.appearance().titleColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8470588235)
+        
+        
+        
+        let containerAppearance = PopupDialogContainerView.appearance()
+        containerAppearance.backgroundColor = UIColor.systemGray3.withAlphaComponent(0.70)
+        containerAppearance.cornerRadius = 35
+        
+        let ov = PopupDialogOverlayView.appearance()
+        ov.blurEnabled     = true
+        ov.blurRadius      = 30
+        ov.liveBlurEnabled = true
+        ov.opacity         = 0.7
+        ov.color           = .black
+        // Create buttons
+        popup.addButtons([buttonOne])
+        
+        
+        // Present dialog
+        self.present(popup, animated: true, completion: nil)
     }
     
     //This function is called when WEATHER is UPDATED
