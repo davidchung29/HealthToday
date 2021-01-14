@@ -13,17 +13,29 @@ protocol WeatherManagerDelegate {
 }
 
 struct WeatherManager {
-    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=d75fa73296a848712ab42e4e6c142a6a&units=imperial"
     
     var delegate: WeatherManagerDelegate?
     
-    func fetchWeather(cityName: String) {
-        let urlString = "\(weatherURL)&q=\(cityName)"
+    func fetchWeather(cityName: String, units: String) {
+        var urlString: String{
+            if units == K.Units.imperial{
+                return "\(K.URL.imperialURL)&q=\(cityName)"
+            }else{
+                return "\(K.URL.metricURL)&q=\(cityName)"
+            }
+        }
         performRequest(with: urlString)
     }
     
-    func fetchWeather(latitude: CLLocationDegrees, longitute: CLLocationDegrees) {
-        let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitute)"
+    func fetchWeather(latitude: CLLocationDegrees, longitute: CLLocationDegrees, units: String) {
+        
+        var urlString: String{
+            if units == K.Units.imperial{
+                return "\(K.URL.imperialURL)&lat=\(latitude)&lon=\(longitute)"
+            }else{
+                return "\(K.URL.metricURL)&lat=\(latitude)&lon=\(longitute)"
+            }
+        }
         performRequest(with: urlString)
     }
     
@@ -35,7 +47,7 @@ struct WeatherManager {
                     self.delegate?.didFailWithError(error: error!)
                     return
                 }
-                if let safeData = data {
+                if let safeData = data {        
                     if let weather = self.parseJSON(safeData) {
                         self.delegate?.didUpdateWeather(self, weather: weather)
                     }

@@ -30,7 +30,9 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     @IBOutlet weak var tableView: UITableView!
     
     
-
+    @IBOutlet weak var tempF: UIButton!
+    @IBOutlet weak var tempC: UIButton!
+    
     
     
     //Initialize Managers//
@@ -67,10 +69,16 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     
     var lat: Double?
     var lon: Double?
+    var currentCity: String?
     
     //create Layout for Table View
     lazy var InfoLayout: [Information] = []
     
+    
+    //Temp Style
+    
+    var dataUnit: String?
+    var lastMethod: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +106,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         infoManager.delegate = self
         searchTextField.delegate = self
         
+        
         tableView.dataSource = self
         //Creates Reusable cell for tableView with custom InfoCell
         tableView.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
@@ -108,7 +117,35 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         
     }
     
+    @IBAction func fPressed(_ sender: Any) {
+        self.dataUnit = K.Units.imperial
+        tempF.alpha = 1.0
+        tempC.alpha = 0.4
+        
+        if self.lastMethod == K.lastUsed.cityName{
+            weatherManager.fetchWeather(cityName: currentCity ?? "San Francisco", units: self.dataUnit ?? K.Units.imperial)
+        }else{
+            weatherManager.fetchWeather(latitude: lat ?? 0, longitute: lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+        }
+    }
+    @IBAction func cPressed(_ sender: Any) {
+        self.dataUnit = K.Units.metric
+        tempF.alpha = 0.4
+        tempC.alpha = 1.0
+        
+        if self.lastMethod == K.lastUsed.cityName{
+            weatherManager.fetchWeather(cityName: currentCity ?? "San Francisco", units: self.dataUnit ?? K.Units.imperial)
+        }else{
+            weatherManager.fetchWeather(latitude: lat ?? 0, longitute: lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+        }
+    }
     
+    
+    
+    
+    
+    
+    //info Button for POP-UP
     @IBAction func infoButton(_ sender: Any) {
         
         let title = "APIs being used"
@@ -287,9 +324,11 @@ extension WeatherViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if let city = searchTextField.text {
-            weatherManager.fetchWeather(cityName: city)
+            self.currentCity = String(city)
+            weatherManager.fetchWeather(cityName: city, units: self.dataUnit ?? K.Units.imperial)
             infoManager.fetchInfoWeather(latitude: lat ?? 0, longitute: lon ?? 0)
             
+            self.lastMethod = K.lastUsed.cityName
         }
         
         searchTextField.text = ""
@@ -313,9 +352,10 @@ extension WeatherViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            weatherManager.fetchWeather(latitude: lat, longitute: lon)
+            weatherManager.fetchWeather(latitude: lat, longitute: lon, units: self.dataUnit ?? K.Units.imperial)
             fipsManager.fetchInfoFips(latitude: lat, longitute: lon)
             infoManager.fetchInfoWeather(latitude: lat, longitute: lon)
+            self.lastMethod = K.lastUsed.location
             print("lat:\(lat), lon:\(lon)")
         }
     }
@@ -382,7 +422,6 @@ extension WeatherViewController: infoManagerDelegate{
 extension WeatherViewController: getFipsManagerDelegate{
     func didUpdateFips(_ getFipsManager: getFipsManager, fipsInfo: getFipsModel) {
         DispatchQueue.main.async {
-            print(fipsInfo.fipsData)
             self.CovidManager.fetchCovid(fipsCode: fipsInfo.fipsData)
         }
     }

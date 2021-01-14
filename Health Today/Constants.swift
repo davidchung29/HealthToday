@@ -10,6 +10,10 @@ import Foundation
 
 //CONSTANTS FILE to manage Strings
 struct K{
+    struct Units{
+        static let imperial = "imperial"
+        static let metric = "metric"
+    }
     struct Info {
         static let UVI = "UVI"
         static let Humidity = "Humidity"
@@ -21,4 +25,14 @@ struct K{
         static let Sunset = "Sunset"
         
     }
+    struct URL{
+        static let imperialURL = "https://api.openweathermap.org/data/2.5/weather?appid=d75fa73296a848712ab42e4e6c142a6a&units=imperial"
+        static let metricURL = "https://api.openweathermap.org/data/2.5/weather?appid=d75fa73296a848712ab42e4e6c142a6a&units=metric"
+    }
+    struct lastUsed{
+        static let cityName = "cityName"
+        static let location = "location"
+    }
+    
+
 }
