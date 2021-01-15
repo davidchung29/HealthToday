@@ -18,6 +18,7 @@
 		CC05FBFB2578495700C9ED7D /* infoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05FBFA2578495700C9ED7D /* infoManager.swift */; };
 		CC05FBFE257849C700C9ED7D /* infoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05FBFD257849C700C9ED7D /* infoData.swift */; };
 		CC05FC01257867AA00C9ED7D /* infoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05FC00257867A900C9ED7D /* infoModel.swift */; };
+		CC5FFEF125B13E2600BFC9AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC5FFEF025B13E2600BFC9AA /* GoogleService-Info.plist */; };
 		CC7B6E09256DE9D60020308B /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7B6E08256DE9D60020308B /* WeatherManager.swift */; };
 		CC7B6E0E256EA4010020308B /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7B6E0D256EA4010020308B /* WeatherData.swift */; };
 		CC8D7241257C4B1700CAFF70 /* getFipsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8D7240257C4B1700CAFF70 /* getFipsData.swift */; };
@@ -49,6 +50,7 @@
 		CC05FBFA2578495700C9ED7D /* infoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoManager.swift; sourceTree = "<group>"; };
 		CC05FBFD257849C700C9ED7D /* infoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoData.swift; sourceTree = "<group>"; };
 		CC05FC00257867A900C9ED7D /* infoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoModel.swift; sourceTree = "<group>"; };
+		CC5FFEF025B13E2600BFC9AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CC7B6E08256DE9D60020308B /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherManager.swift; path = "Health Today/Model/WeatherManager.swift"; sourceTree = SOURCE_ROOT; };
 		CC7B6E0D256EA4010020308B /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		CC8D7240257C4B1700CAFF70 /* getFipsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getFipsData.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				ADAA27C9231BC3F200365194 /* View */,
 				ADAA27C8231BC3E500365194 /* Controller */,
 				ADAA27B9231BBFB300365194 /* Assets.xcassets */,
+				CC5FFEF025B13E2600BFC9AA /* GoogleService-Info.plist */,
 				ADAA27BE231BBFB300365194 /* Info.plist */,
 			);
 			path = "Health Today";
@@ -230,6 +233,7 @@
 				CCA21AA22597AD8D0081420B /* InfoCell.xib in Resources */,
 				ADAA27BA231BBFB300365194 /* Assets.xcassets in Resources */,
 				ADAA27B8231BBFAF00365194 /* Main.storyboard in Resources */,
+				CC5FFEF125B13E2600BFC9AA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

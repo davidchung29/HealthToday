@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>479098470600-ate84fi77kjap6btd7cslfeqmvh34rla.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.479098470600-ate84fi77kjap6btd7cslfeqmvh34rla</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAc3oWfN3sW_n_yv7g65zIm6r0vc-Qt2to</string>
+	<key>GCM_SENDER_ID</key>
+	<string>479098470600</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>co.Zinee.Health-Today</string>
+	<key>PROJECT_ID</key>
+	<string>today-s-health</string>
+	<key>STORAGE_BUCKET</key>
+	<string>today-s-health.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:479098470600:ios:46177d09b875c025dd65fd</string>
+</dict>
+</plist>

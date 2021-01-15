@@ -8,4 +8,7 @@ target 'Health Today' do
     
     pod 'IQKeyboardManagerSwift'
     pod 'PopupDialog', '~> 1.1'
+    
+    pod 'Firebase/Auth'
+    pod 'Firebase/Firestore'
 end
