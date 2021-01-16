@@ -79,7 +79,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     
     var dataUnit: String?
     var lastMethod: String?
-    
+    var tempUnitStr: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
@@ -119,24 +119,44 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     
     @IBAction func fPressed(_ sender: Any) {
         self.dataUnit = K.Units.imperial
+        self.tempUnitStr = "°F"
+        
         tempF.alpha = 1.0
         tempC.alpha = 0.4
         
         if self.lastMethod == K.lastUsed.cityName{
-            weatherManager.fetchWeather(cityName: currentCity ?? "San Francisco", units: self.dataUnit ?? K.Units.imperial)
+            DispatchQueue.main.async {
+                self.weatherManager.fetchWeather(cityName: self.currentCity ?? "San Francisco", units: self.dataUnit ?? K.Units.imperial)
+                self.infoManager.fetchInfoWeather(latitude: self.lat ?? 0, longitute: self.lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+                self.tableView.reloadData()
+            }
         }else{
-            weatherManager.fetchWeather(latitude: lat ?? 0, longitute: lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+            DispatchQueue.main.async {
+                self.weatherManager.fetchWeather(latitude: self.lat ?? 0, longitute: self.lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+                self.infoManager.fetchInfoWeather(latitude: self.lat ?? 0, longitute: self.lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+                self.tableView.reloadData()
+            }
         }
     }
     @IBAction func cPressed(_ sender: Any) {
         self.dataUnit = K.Units.metric
+        self.tempUnitStr = "°C"
+        
         tempF.alpha = 0.4
         tempC.alpha = 1.0
         
         if self.lastMethod == K.lastUsed.cityName{
-            weatherManager.fetchWeather(cityName: currentCity ?? "San Francisco", units: self.dataUnit ?? K.Units.imperial)
+            DispatchQueue.main.async {
+                self.weatherManager.fetchWeather(cityName: self.currentCity ?? "San Francisco", units: self.dataUnit ?? K.Units.imperial)
+                self.infoManager.fetchInfoWeather(latitude: self.lat ?? 0, longitute: self.lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+                self.tableView.reloadData()
+            }
         }else{
-            weatherManager.fetchWeather(latitude: lat ?? 0, longitute: lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+            DispatchQueue.main.async {
+                self.weatherManager.fetchWeather(latitude: self.lat ?? 0, longitute: self.lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+                self.infoManager.fetchInfoWeather(latitude: self.lat ?? 0, longitute: self.lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -191,7 +211,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
             self.conditionImageView.image = UIImage(systemName: weather.conditionName)
-            self.temperatureLabel.text = "\(weather.temperatureString)°F"
+            self.temperatureLabel.text = "\(weather.temperatureString)" + (self.tempUnitStr ??  "°F")
             self.cityLabel.text = weather.cityName
             self.lat = weather.lat
             self.lon = weather.lon
@@ -326,7 +346,7 @@ extension WeatherViewController: UITextFieldDelegate {
         if let city = searchTextField.text {
             self.currentCity = String(city)
             weatherManager.fetchWeather(cityName: city, units: self.dataUnit ?? K.Units.imperial)
-            infoManager.fetchInfoWeather(latitude: lat ?? 0, longitute: lon ?? 0)
+            infoManager.fetchInfoWeather(latitude: lat ?? 0, longitute: lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
             
             self.lastMethod = K.lastUsed.cityName
         }
@@ -354,7 +374,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
             let lon = location.coordinate.longitude
             weatherManager.fetchWeather(latitude: lat, longitute: lon, units: self.dataUnit ?? K.Units.imperial)
             fipsManager.fetchInfoFips(latitude: lat, longitute: lon)
-            infoManager.fetchInfoWeather(latitude: lat, longitute: lon)
+            infoManager.fetchInfoWeather(latitude: lat, longitute: lon, units: self.dataUnit ?? K.Units.imperial)
             self.lastMethod = K.lastUsed.location
             print("lat:\(lat), lon:\(lon)")
         }
@@ -384,8 +404,8 @@ extension WeatherViewController: infoManagerDelegate{
             self.stringSunriseDate = "\(stringSunriseDate)"
             self.stringSunsetDate = "\(stringSunsetDate)"
             
-            self.TemperatureString = "\(weatherInfo.TemperatureString)°F"
-            self.FeelsLikeString = "Feels like: \n \(weatherInfo.FeelsLikeString)°F "
+            self.TemperatureString = "\(weatherInfo.TemperatureString)" + (self.tempUnitStr ??  "°F")
+            self.FeelsLikeString = "Feels like: \n \(weatherInfo.FeelsLikeString) " + (self.tempUnitStr ??  "°F")
             
             self.PressureString = "\(weatherInfo.PressureString)hPa"
             self.HumidityString = "\(weatherInfo.HumidityString)% \(weatherInfo.humiditySafety)"
@@ -394,10 +414,20 @@ extension WeatherViewController: infoManagerDelegate{
             self.uviSafety = "\(weatherInfo.uviSafety)"
             
             self.windSpeed = "\(weatherInfo.windSpeedString)"
-            self.windClass = "\(weatherInfo.windClass)"
-            self.knots = "\(weatherInfo.knots)"
+            
+            if self.dataUnit == K.Units.imperial{
+                self.knots = "\(weatherInfo.mphKnots)"
+                
+                self.windClass = "\(weatherInfo.windClassMPH)"
+            }
+            if self.dataUnit == K.Units.metric{
+                self.knots = "\(weatherInfo.mpsKnots)"
+                
+                self.windClass = "\(weatherInfo.windClassMPS)"
+            }
+            
             self.visibility = "\(weatherInfo.visibilityString)"
-            self.dewPoint = "\(weatherInfo.DewPoint)"
+            self.dewPoint = "\(weatherInfo.DewPoint)" + (self.tempUnitStr ??  "°F")
             
             self.InfoLayout = [
                 Information(sender: K.Info.UVI , body: "\(self.uviString ?? "----") \(self.uviSafety ?? "----")"),
@@ -405,7 +435,7 @@ extension WeatherViewController: infoManagerDelegate{
                 Information(sender: K.Info.Pressure, body: "\(self.PressureString ?? "----")"),
                 Information(sender: K.Info.WindSpeed, body: "\(self.knots ?? "----") Knots"),
                 Information(sender: K.Info.Visibility, body: "\(self.visibility ?? "----") Miles"),
-                Information(sender: K.Info.DewPoint, body: "\(self.dewPoint ?? "-----")°F"),
+                Information(sender: K.Info.DewPoint, body: "\(self.dewPoint ?? "-----")"),
                 Information(sender: K.Info.Sunrise, body: "\(stringSunriseDate )"),
                 Information(sender: K.Info.Sunset, body: "\(stringSunsetDate )")
             ]
