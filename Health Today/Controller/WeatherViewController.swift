@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 
 import PopupDialog
+import AudioToolbox
 
 class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManagerDelegate{
 
@@ -80,6 +81,11 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     var dataUnit: String?
     var lastMethod: String?
     var tempUnitStr: String?
+    
+    // UX
+    let generator = UIImpactFeedbackGenerator(style: .medium)
+    let lgenerator = UIImpactFeedbackGenerator(style: .light)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
@@ -116,6 +122,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         
         
     }
+
     
     @IBAction func fPressed(_ sender: Any) {
         self.dataUnit = K.Units.imperial
@@ -123,6 +130,9 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         
         tempF.alpha = 1.0
         tempC.alpha = 0.4
+        
+        //haptic vibrate
+        lgenerator.impactOccurred()
         
         if self.lastMethod == K.lastUsed.cityName{
             DispatchQueue.main.async {
@@ -144,6 +154,9 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         
         tempF.alpha = 0.4
         tempC.alpha = 1.0
+        
+        //haptic vibrate
+        lgenerator.impactOccurred()
         
         if self.lastMethod == K.lastUsed.cityName{
             DispatchQueue.main.async {
@@ -173,6 +186,8 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         let buttonOne = CancelButton(title: "Cancel") {
             print("You canceled the car dialog.")
         }
+        //haptic
+        lgenerator.impactOccurred()
         
         // Create the dialog
         let popup = PopupDialog(title: title, message: message, image: nil)
@@ -322,8 +337,10 @@ extension WeatherViewController: UITableViewDataSource{
 extension WeatherViewController: UITextFieldDelegate {
     
     @IBAction func searchPressed(_ sender: UIButton) {
-        searchTextField.endEditing(true)
-    
+        //searchTextField.endEditing(true)
+        
+        lgenerator.impactOccurred()
+        searchTextField.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -334,21 +351,26 @@ extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
             self.tableView.reloadData()
+            searchTextField.endEditing(true)
             return true
         } else {
             textField.placeholder = "Type something"
-            return false
+            return true
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if let city = searchTextField.text {
-            self.currentCity = String(city)
-            weatherManager.fetchWeather(cityName: city, units: self.dataUnit ?? K.Units.imperial)
-            infoManager.fetchInfoWeather(latitude: lat ?? 0, longitute: lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+            DispatchQueue.main.async {
+                self.currentCity = String(city)
+                self.weatherManager.fetchWeather(cityName: city, units: self.dataUnit ?? K.Units.imperial)
+                self.infoManager.fetchInfoWeather(latitude: self.lat ?? 0, longitute: self.lon ?? 0, units: self.dataUnit ?? K.Units.imperial)
+                
+                self.lastMethod = K.lastUsed.cityName
+                self.tableView.reloadData()
+            }
             
-            self.lastMethod = K.lastUsed.cityName
         }
         
         searchTextField.text = ""
@@ -365,6 +387,8 @@ extension WeatherViewController: CLLocationManagerDelegate {
     
     @IBAction func locationPressed(_ sender: UIButton) {
         locationManager.requestLocation()
+        
+        lgenerator.impactOccurred()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -205,6 +205,7 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="25X-Cu-fOe">
                                         <rect key="frame" x="0.0" y="354" width="350" height="360"/>
                                         <color key="backgroundColor" name="Background"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="360" id="4hd-lJ-DoQ"/>
                                         </constraints>
@@ -241,6 +242,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="Khp-WC-orW" firstAttribute="centerX" secondItem="Wz9-jj-JbA" secondAttribute="centerX" id="5fB-l2-hMH"/>
                                     <constraint firstItem="Khp-WC-orW" firstAttribute="centerX" secondItem="Wz9-jj-JbA" secondAttribute="centerX" id="8Ly-xj-uAk"/>
