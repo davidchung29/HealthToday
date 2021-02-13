@@ -88,6 +88,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        generator.impactOccurred()
         print("loaded")
         
         
@@ -119,7 +120,8 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
         //hides extra table view cells by createing a uiview over it
         tableView.tableFooterView = UIView()
         
-        
+        tempF.alpha = 1.0
+        tempC.alpha = 0.4
         
     }
 
@@ -182,7 +184,7 @@ class WeatherViewController: UIViewController, covidManagerDelegate,WeatherManag
     @IBAction func infoButton(_ sender: Any) {
         
         let title = "APIs being used"
-        let message = "CovidActNow API\nFCC Block API\nOpenWeatherMap API"
+        let message = "FCC Block API\nOpenWeatherMap API"
         let buttonOne = CancelButton(title: "Cancel") {
             print("You canceled the car dialog.")
         }
